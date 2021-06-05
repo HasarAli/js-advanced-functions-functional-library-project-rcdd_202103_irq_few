@@ -136,6 +136,7 @@ const fi = (function() {
       return newArr
     },
 
+<<<<<<< HEAD
     uniq: function(array, sorted=false, transform=x => x) {
       const newArr = []
       
@@ -158,6 +159,39 @@ const fi = (function() {
       return newArr
     },
 
+=======
+    uniqSorted: function(array, iteratee) {
+      const sorted = [collection[0]]
+      for (let idx = 1; idx < collection.length; idx++) {
+        if (sorted[idx-1] !== collection[idx])
+          sorted.push(collection[idx])
+      }
+      return sorted
+    },
+
+    uniq: function(array, sorted=false, callback=x => x) {
+      const newArr = []
+      
+      if (sorted) {
+        let prev;
+        for (let item in array) {
+          if (item === prev) continue
+          newArr.push(item)
+        }
+        return newArr
+      }
+      
+      const storedVals = []
+      for (let item in array) {
+        if (storedVals.findIndex( val => transform(val) ==== transform(item) ) == -1) {
+          newArr.push(item)
+          storedVals.push(transform(item))
+        }
+      }
+      return newArr
+    },
+
+>>>>>>> 2cc4119cf0c9435e89e43d2c43a79fe7b1dadc16
     keys: function(obj) {
       // Using for loop
       const keys = []
@@ -168,6 +202,7 @@ const fi = (function() {
     },
 
     values: function(obj) {
+<<<<<<< HEAD
       
       const keys = []
       for (let key in obj)
@@ -185,6 +220,30 @@ const fi = (function() {
       }
 
       return keys.sort()
+=======
+      // Using for loop
+      const values = []
+      for (let key in obj){
+        values.push(obj[key])
+      }
+      return values
+
+      // Using the custom 'map' method from above
+      // return this.map(obj, (value) => value)
+
+    },
+
+    functions: function(obj) {
+      const functionNames = []
+
+      for (let key in obj) {
+        if (typeof obj[key] === "function"){
+          functionNames.push(key)
+        }
+      }
+
+      return functionNames.sort()
+>>>>>>> 2cc4119cf0c9435e89e43d2c43a79fe7b1dadc16
     },
 
   }
@@ -192,6 +251,10 @@ const fi = (function() {
 
 fi.libraryMethod()
 
+<<<<<<< HEAD
 let res = fi.uniq([1,1,1,4]);
+=======
+let res = fi.flatten([1,2,[[[3]]],[4]], true);
+>>>>>>> 2cc4119cf0c9435e89e43d2c43a79fe7b1dadc16
 
 console.log(res)
